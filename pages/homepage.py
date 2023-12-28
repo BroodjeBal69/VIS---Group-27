@@ -3,6 +3,7 @@ from dash import html, dcc, Input, Output, callback, Dash, dash_table
 import pandas as pd
 from plotly.subplots import make_subplots
 import plotly.graph_objects as go
+import re
 
 df_player_defense       = pd.read_csv('../Data/FIFA World Cup 2022 Player Data/player_defense.csv', delimiter=',')
 df_player_keepers       = pd.read_csv('../Data/FIFA World Cup 2022 Player Data/player_keepers.csv', delimiter=',')
@@ -22,8 +23,19 @@ most_clean_sheets = df_player_keepers.sort_values('gk_clean_sheets', ascending=F
 most_tackles = df_player_defense.sort_values('tackles', ascending=False).head(5)
 most_blocks = df_player_defense.sort_values('blocks', ascending=False).head(5)
 
-fig = make_subplots(rows=3, cols=3, subplot_titles=('Topscorers', 'Pens made', "Most assists", 'Most passes', 'Most minutes', 'Most saves', 'Most clean sheets',
-                                                    'Most tackles', 'Most blocks'))
+df_team_data        = pd.read_csv('../Data/FIFA World Cup 2022 Team Data/team_data.csv', delimiter=',')
+
+df_match_data = pd.read_csv('../Data/FIFA World Cup 2022 Match Data/data.csv', delimiter=',')
+df_match_data[['score_home', 'score_away']] = df_match_data.score.str.split("–", expand=True,)
+for index, row in df_match_data.iterrows():
+    df_match_data.loc[index, 'score_home'] = int(re.sub("\(.*?\)","",str(df_match_data.loc[index, 'score_home'])))
+    df_match_data.loc[index, 'score_away'] = int(re.sub("\(.*?\)","",str(df_match_data.loc[index, 'score_away'])))
+df_team_shots = df_match_data[["home_team", "home_saves", "away_sot"]]
+
+fig = make_subplots(rows=5, cols=3, specs=[[{}, {}, {}], [{}, {}, {}], [{}, {}, {}],
+           [{"colspan": 3}, None, None], [{"colspan": 3}, None, None]],
+           subplot_titles=('Topscorers', 'Pens made', "Most assists", 'Most passes', 'Most minutes', 'Most saves', 'Most clean sheets',
+                                                    'Most tackles', 'Most blocks', 'Shots saved v.s. Shots taken'))
 fig.add_trace(row=1, col=1,
     trace=go.Bar(x=topscorers['player'], y=topscorers['goals'], width=0.42)
     )
@@ -54,6 +66,11 @@ fig.add_trace(row=3, col=3,
     trace=go.Bar(x=most_blocks['player'], y=most_blocks['blocks'], width=0.42)
     )
 
+fig.add_trace(go.Scatter(x=df_team_data['gk_saves'], y=df_team_data['shots'], mode='markers', text=df_team_data['team']), row=4, col=1)
+
+fig.add_trace(go.Scatter(x=df_team_data['goals'], y=df_team_data['shots'], mode='markers', text=df_team_data['team']), row=5, col=1)
+
+
 fig.update_yaxes(title_text="Goals", row=1, col=1)
 fig.update_yaxes(title_text="Penalties scored", row=1, col=2)
 fig.update_yaxes(title_text="Assists", row=1, col=3)
@@ -63,6 +80,12 @@ fig.update_yaxes(title_text="Saves", row=2, col=3)
 fig.update_yaxes(title_text="Clean sheets", row=3, col=1)
 fig.update_yaxes(title_text="Tackles", row=3, col=2)
 fig.update_yaxes(title_text="Blocks", row=3, col=3)
+fig.update_xaxes(title_text='Shots saved', row=4, col=1)
+fig.update_yaxes(title_text='Shots taken', row=4, col=1)
+fig.update_xaxes(title_text='Goals', row=5, col=1)
+fig.update_yaxes(title_text='Shots taken', row=5, col=1)
+
+fig.update_layout(height=3500, width=2500)
 
 dash.register_page(__name__, path='/')
 
