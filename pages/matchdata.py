@@ -6,14 +6,14 @@ import plotly.graph_objects as go
 import re
 
 df_match_data = pd.read_csv('../Data/FIFA World Cup 2022 Match Data/data.csv', delimiter=',')
-df_match_data_cleaned = df_match_data[['match', 'match_time', 'home_team', 'away_team', 'score', 'attendance', 'venue', 'referee', 'home_formation', 'away_formation']]
+df_match_data_cleaned = df_match_data[['match', 'match_time', 'home_team', 'away_team', 'score', 'attendance', 'venue', 'referee', 'home_formation', 'away_formation', 'home_sot', 'away_sot', 'home_clearances', 'away_clearances']]
 df_match_data_cleaned[['score_home', 'score_away']] = df_match_data_cleaned.score.str.split("–", expand=True,)
 df_match_data_cleaned.loc[:48, 'Stage'] = 'Group stage'
 df_match_data_cleaned.loc[48:56, 'Stage'] = 'Round of 8'
 df_match_data_cleaned.loc[56:60, 'Stage'] = 'Quarter finals'
 df_match_data_cleaned.loc[60:62, 'Stage'] = 'Semi finals'
 df_match_data_cleaned.loc[62:, 'Stage'] = 'Finals'
-column = ['match_time', 'home_team', 'away_team', 'score_home', 'score_away', 'attendance', 'venue', 'referee', 'home_formation', 'away_formation']
+column = ['match_time', 'home_team', 'away_team', 'score_home', 'score_away', 'attendance', 'venue', 'referee', 'home_formation', 'away_formation', 'home_sot', 'away_sot', 'home_clearances', 'away_clearances']
 
 colors = {
     'background': '#0E1B2A',
@@ -27,12 +27,22 @@ for index, row in filtered_data.iterrows():
     filtered_data.loc[index, 'score_away'] = int(re.sub("\(.*?\)","",str(filtered_data.loc[index, 'score_away'])))
 avg_home = filtered_data['score_home'].mean()
 avg_away = filtered_data['score_away'].mean()
-fig = make_subplots(rows=1, cols=2, subplot_titles=('Average goals', "Average attendance"))
+avg_sot_home = filtered_data['home_sot'].mean()
+avg_sot_away = filtered_data['away_sot'].mean()
+avg_clear_home = filtered_data['home_clearances'].mean()
+avg_clear_away = filtered_data['away_clearances'].mean()
+fig = make_subplots(rows=2, cols=2, subplot_titles=('Average goals', "Average attendance"))
 fig.add_trace(row=1, col=1,
         trace=go.Bar(x=['Home', 'Away'], y=[avg_home, avg_away], width=0.42)
         )
 fig.add_trace(row=1, col=2,
         trace=go.Bar(x=filtered_data['venue'], y=filtered_data['attendance'], width=0.42)
+        )
+fig.add_trace(row=2, col=1,
+        trace=go.Scatter(x=filtered_data['home_sot'], y=filtered_data['away_sot'], mode='markers')
+        )
+fig.add_trace(row=2, col=2,
+        trace=go.Scatter(x=filtered_data['home_clearances'], y=filtered_data['away_clearances'], mode='markers')
         )
 fig.update_yaxes(title_text="Goals", row=1, col=1)
 fig.update_yaxes(title_text="Attendance", row=1, col=2)
@@ -86,12 +96,22 @@ def update_graph(value):
         filtered_data.loc[index, 'score_away'] = int(re.sub("\(.*?\)","",str(filtered_data.loc[index, 'score_away'])))
     avg_home = filtered_data['score_home'].mean()
     avg_away = filtered_data['score_away'].mean()
-    fig = make_subplots(rows=1, cols=2, subplot_titles=('Average goals', "Average attendance"))
+    avg_sot_home = filtered_data['home_sot'].mean()
+    avg_sot_away = filtered_data['away_sot'].mean()
+    avg_clear_home = filtered_data['home_clearances'].mean()
+    avg_clear_away = filtered_data['away_clearances'].mean()
+    fig = make_subplots(rows=2, cols=2, subplot_titles=('Average goals', "Average attendance"))
     fig.add_trace(row=1, col=1,
         trace=go.Bar(x=['Home', 'Away'], y=[avg_home, avg_away], width=0.42)
         )
     fig.add_trace(row=1, col=2,
         trace=go.Bar(x=filtered_data['venue'], y=filtered_data['attendance'], width=0.42)
+        )
+    fig.add_trace(row=2, col=1,
+        trace=go.Scatter(x=filtered_data['home_sot'], y=filtered_data['away_sot'], mode='markers')
+        )
+    fig.add_trace(row=2, col=2,
+        trace=go.Scatter(x=filtered_data['home_clearances'], y=filtered_data['away_clearances'], mode='markers')
         )
     fig.update_yaxes(title_text="Goals", row=1, col=1)
     fig.update_yaxes(title_text="Attendance", row=1, col=2)
