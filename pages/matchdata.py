@@ -89,7 +89,7 @@ avg_sot_home = filtered_data['home_sot'].mean()
 avg_sot_away = filtered_data['away_sot'].mean()
 avg_clear_home = filtered_data['home_clearances'].mean()
 avg_clear_away = filtered_data['away_clearances'].mean()
-fig = make_subplots(rows=2, cols=2, subplot_titles=('Average goals', "Average attendance"))
+fig = make_subplots(rows=2, cols=2, subplot_titles=('Average goals', "Average attendance", "Shots", "Clearances"))
 fig.add_trace(row=1, col=1,
         trace=go.Bar(x=['Home', 'Away'], y=[avg_home, avg_away], width=0.42)
         )
@@ -104,6 +104,13 @@ fig.add_trace(row=2, col=2,
         )
 fig.update_yaxes(title_text="Goals", row=1, col=1)
 fig.update_yaxes(title_text="Attendance", row=1, col=2)
+fig.update_xaxes(tickangle=10, row=1, col=2)
+fig.update_xaxes(title_text="Home shots", row=2, col=1)
+fig.update_yaxes(title_text="Away shots", row=2, col=1)
+fig.update_xaxes(title_text="Home clearances", row=2, col=2)
+fig.update_yaxes(title_text="Away clearances", row=2, col=2)
+fig.update_layout(height=800)
+
 
 
 dash.register_page(__name__,
