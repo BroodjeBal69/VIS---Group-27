@@ -34,6 +34,22 @@ def create_pitch():
     # Add centre spot
     fig.add_trace(go.Scatter(x=[65], y=[45], mode='markers', marker=dict(color='black', size=5)))
 
+    # Player positions for 5-3-2 formation (home team)
+    home_positions = [(7, 45), (25, 45), (25, 25), (25, 5), (25, 65), (25, 85),
+                      (43, 45), (43, 15), (43, 75), (61, 20), (61, 70)]
+
+    # Player positions for 4-3-3 formation (away team)
+    away_positions = away_positions = [(130 - x, y) for x, y in [(7, 45), (25, 30), (25, 5), (25, 60), (25, 85), (43, 45), (43, 15), (43, 75), (61, 45), (61, 75), (61, 15)]]
+
+
+    # Add players for the home team
+    for position in home_positions:
+        fig.add_trace(go.Scatter(x=[position[0]], y=[position[1]], mode='markers', marker=dict(color='red', size=10)))
+
+    # Add players for the away team
+    for position in away_positions:
+        fig.add_trace(go.Scatter(x=[position[0]], y=[position[1]], mode='markers', marker=dict(color='blue', size=10)))
+
     # Update layout
     fig.update_layout(
         xaxis=dict(range=[0, 130], visible=False),
@@ -43,6 +59,7 @@ def create_pitch():
     )
 
     return fig
+
 
 
 df_match_data = pd.read_csv('../Data/FIFA World Cup 2022 Match Data/data.csv', delimiter=',')
@@ -163,4 +180,3 @@ def update_graph(value):
 
 
     return fig
-
