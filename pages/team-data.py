@@ -14,6 +14,9 @@ df_player_stats = pd.read_csv('../Data/FIFA World Cup 2022 Player Data/player_st
 df_team_group_stats = pd.read_csv('../Data/FIFA World Cup 2022 Team Data/group_stats.csv', delimiter=',')
 df_players_team = df_player_stats[df_player_stats["team"]=='Argentina']
 df_players = df_players_team[['player', 'position', 'games', 'goals', 'assists']]
+df_team_rating = pd.read_csv('df_rating_team.csv')
+
+df_team_rating_scaled = df_team_rating[df_team_rating['name'] == 'Argentina']
 
 colors = {
     'background': '#0E1B2A',
@@ -24,15 +27,22 @@ colors = {
 filtered_data = df_player_stats[df_player_stats["team"] == 'Argentina'][['player', 'position', 'games', 'goals', 'assists']]
 filtered_goals = filtered_data.sort_values('goals', ascending=False).head(5)
 filtered_assists = filtered_data.sort_values('assists', ascending=False).head(5)
-fig = make_subplots(rows=1, cols=2, subplot_titles=('Topscorers', "Most assists"))
+fig = make_subplots(rows=2, cols=2,  specs=[[{}, {}],
+            [{"colspan": 2}, None]], subplot_titles=('Topscorers', "Most assists"))
 fig.add_trace(row=1, col=1,
         trace=go.Bar(x=filtered_goals['player'], y=filtered_goals['goals'])
         )
 fig.add_trace(row=1, col=2,
         trace=go.Bar(x=filtered_assists['player'], y=filtered_assists['assists'])
         )
+fig.add_trace(row=2, col=1,
+        trace=go.Scatter(y=df_team_rating_scaled['rating_team'])
+        )
 fig.update_yaxes(title_text="Goals", row=1, col=1)
 fig.update_yaxes(title_text="Assists", row=1, col=2)
+fig.update_xaxes(title_text="Match", row=1, col=1)
+fig.update_yaxes(title_text="Rating", row=2, col=1)
+
 
 dash.register_page(__name__,
                    path='/team-data',
@@ -78,15 +88,23 @@ def update_graph(value):
     filtered_data = df_player_stats[df_player_stats["team"] == value][['player', 'position', 'games', 'goals', 'assists']]
     filtered_goals = filtered_data.sort_values('goals', ascending=False).head(5)
     filtered_assists = filtered_data.sort_values('assists', ascending=False).head(5)
-    fig = make_subplots(rows=1, cols=2, subplot_titles=('Topscorers', "Most assists"))
+    df_team_rating_scaled = df_team_rating[df_team_rating['name'] == value]
+    fig = make_subplots(rows=2, cols=2, specs=[[{}, {}],
+            [{"colspan": 2}, None]], subplot_titles=('Topscorers', "Most assists"))
     fig.add_trace(row=1, col=1,
         trace=go.Bar(x=filtered_goals['player'], y=filtered_goals['goals'])
         )
     fig.add_trace(row=1, col=2,
         trace=go.Bar(x=filtered_assists['player'], y=filtered_assists['assists'])
         )
+    fig.add_trace(row=2, col=1,
+        trace=go.Scatter(y=df_team_rating_scaled['rating_team'])
+        )
+
     fig.update_yaxes(title_text="Goals", row=1, col=1)
     fig.update_yaxes(title_text="Assists", row=1, col=2)
+    fig.update_xaxes(title_text="Match", row=1, col=1)
+    fig.update_yaxes(title_text="Rating", row=2, col=1)
 
 
     return fig

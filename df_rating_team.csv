@@ -1,0 +1,129 @@
+,name,rating_team,match,side
+0,Qatar,1.368003175863438,Qatar - Ecuador,home
+1,Ecuador,2.4815402937673685,Qatar - Ecuador,away
+2,England,3.001814779107355,England - IR Iran,home
+3,IR Iran,3.6418646855328083,England - IR Iran,away
+4,Senegal,4.3717461577723595,Senegal - Netherlands,home
+5,Netherlands,3.2488515850961273,Senegal - Netherlands,away
+6,United States,2.664946407304486,United States - Wales,home
+7,Wales,3.984815402937673,United States - Wales,away
+8,Argentina,1.0,Argentina - Saudi Arabia,home
+9,Saudi Arabia,10.0,Argentina - Saudi Arabia,away
+10,Denmark,2.822151647479158,Denmark - Tunisia,home
+11,Tunisia,5.416038110361255,Denmark - Tunisia,away
+12,Mexico,3.136562127828504,Mexico - Poland,home
+13,Poland,3.529575228265185,Mexico - Poland,away
+14,France,4.1583961889638745,France - Australia,home
+15,Australia,3.254466057959508,France - Australia,away
+16,Morocco,3.922588328701866,Morocco - Croatia,home
+17,Croatia,2.2719333068678047,Morocco - Croatia,away
+18,Germany,2.766369142901049,Germany - Japan,home
+19,Japan,6.190231658748351,Germany - Japan,away
+20,Spain,,Spain - Costa Rica,home
+21,Costa Rica,,Spain - Costa Rica,away
+22,Belgium,4.1583961889638745,Belgium - Canada,home
+23,Canada,2.2031560142913857,Belgium - Canada,away
+24,Switzerland,2.8109227017523963,Switzerland - Cameroon,home
+25,Cameroon,2.8951397947031134,Switzerland - Cameroon,away
+26,Uruguay,3.2937673680031763,Uruguay - Korea Republic,home
+27,Korea Republic,2.350535926955141,Uruguay - Korea Republic,away
+28,Portugal,2.9531560142913857,Portugal - Ghana,home
+29,Ghana,3.1867804684398573,Portugal - Ghana,away
+30,Brazil,4.3418023025009935,Brazil - Serbia,home
+31,Serbia,3.5885271933306866,Brazil - Serbia,away
+32,Wales,3.2825384222764136,Wales - IR Iran,home
+33,IR Iran,5.5507854590824035,Wales - IR Iran,away
+34,Qatar,3.0088328701865823,Qatar - Senegal,home
+35,Senegal,3.7260817784835254,Qatar - Senegal,away
+36,Netherlands,6.604324778740396,Netherlands - Ecuador,home
+37,Ecuador,2.5354832683371087,Netherlands - Ecuador,away
+38,England,2.7435490273918224,England - United States,home
+39,United States,2.036125446605796,England - United States,away
+40,Tunisia,3.961889638745534,Tunisia - Australia,home
+41,Australia,5.547042477173482,Tunisia - Australia,away
+42,Poland,4.1583961889638745,Poland - Saudi Arabia,home
+43,Saudi Arabia,2.989182215164748,Poland - Saudi Arabia,away
+44,France,4.538308852719334,France - Denmark,home
+45,Denmark,3.4837236998809047,France - Denmark,away
+46,Argentina,4.525208416038111,Argentina - Mexico,home
+47,Mexico,2.1933306867804685,Argentina - Mexico,away
+48,Japan,1.0928940055577612,Japan - Costa Rica,home
+49,Costa Rica,6.595077411671299,Japan - Costa Rica,away
+50,Belgium,1.8003175863437875,Belgium - Morocco,home
+51,Morocco,4.6562127828503375,Belgium - Morocco,away
+52,Croatia,5.054768375729075,Croatia - Canada,home
+53,Canada,4.13421076739854,Croatia - Canada,away
+54,Spain,3.0196659235960555,Spain - Germany,home
+55,Germany,4.2823464744862125,Spain - Germany,away
+56,Cameroon,4.558178893044442,Cameroon - Serbia,home
+57,Serbia,3.786632122187167,Cameroon - Serbia,away
+58,Korea Republic,3.972260817784835,Korea Republic - Ghana,home
+59,Ghana,5.7959507741167124,Korea Republic - Ghana,away
+60,Brazil,3.6867804684398573,Brazil - Switzerland,home
+61,Switzerland,2.9400555776101625,Brazil - Switzerland,away
+62,Portugal,3.2272574586985066,Portugal - Uruguay,home
+63,Uruguay,2.562158365651815,Portugal - Uruguay,away
+64,Ecuador,3.295015028639483,Ecuador - Senegal,home
+65,Senegal,4.012419894515964,Ecuador - Senegal,away
+66,Netherlands,3.4509726081778487,Netherlands - Qatar,home
+67,Qatar,1.6529376736800319,Netherlands - Qatar,away
+68,Wales,2.124553394204049,Wales - England,home
+69,England,2.5863437872171495,Wales - England,away
+70,IR Iran,3.1169114728066694,IR Iran - United States,home
+71,United States,3.398570861452958,IR Iran - United States,away
+72,Australia,4.996824136562128,Australia - Denmark,home
+73,Denmark,2.7828503374354905,Australia - Denmark,away
+74,Tunisia,4.315601429138547,Tunisia - France,home
+75,France,5.180230250099246,Tunisia - France,away
+76,Saudi Arabia,3.9486856413000337,Saudi Arabia - Mexico,home
+77,Mexico,4.5604190758927805,Saudi Arabia - Mexico,away
+78,Poland,3.226393693642602,Poland - Argentina,home
+79,Argentina,3.6306357398060456,Poland - Argentina,away
+80,Canada,1.1602676799183351,Canada - Morocco,home
+81,Morocco,5.096013157148527,Canada - Morocco,away
+82,Croatia,3.0579595077411676,Croatia - Belgium,home
+83,Belgium,3.922588328701866,Croatia - Belgium,away
+84,Japan,4.096636987466683,Japan - Spain,home
+85,Spain,1.7890886406170248,Japan - Spain,away
+86,Costa Rica,6.131417421925351,Costa Rica - Germany,home
+87,Germany,4.040439220627684,Costa Rica - Germany,away
+88,Ghana,3.319968241365621,Ghana - Uruguay,home
+89,Uruguay,4.900754267566494,Ghana - Uruguay,away
+90,Korea Republic,3.6515693399844444,Korea Republic - Portugal,home
+91,Portugal,2.768090116921352,Korea Republic - Portugal,away
+92,Serbia,2.6246373713622617,Serbia - Switzerland,home
+93,Switzerland,3.7761321647784527,Serbia - Switzerland,away
+94,Cameroon,5.258832870186582,Cameroon - Brazil,home
+95,Brazil,3.4509726081778487,Cameroon - Brazil,away
+96,Netherlands,5.656469654157813,Netherlands - United States,home
+97,United States,3.531116456110034,Netherlands - United States,away
+98,Argentina,3.8046843985708625,Argentina - Australia,home
+99,Australia,1.9411472806669319,Argentina - Australia,away
+100,France,3.662340998328668,France - Poland,home
+101,Poland,3.3046660506203276,France - Poland,away
+102,England,3.8439857086145297,England - Senegal,home
+103,Senegal,1.996824136562128,England - Senegal,away
+104,Japan,3.8439857086145297,Japan - Croatia,home
+105,Croatia,1.996824136562128,Japan - Croatia,away
+106,Brazil,3.8003175863437875,Brazil - Korea Republic,home
+107,Korea Republic,3.7915839618896383,Brazil - Korea Republic,away
+108,Morocco,3.8003175863437875,Morocco - Spain,home
+109,Spain,3.7915839618896383,Morocco - Spain,away
+110,Portugal,4.172920586153927,Portugal - Switzerland,home
+111,Switzerland,1.597545609886601,Portugal - Switzerland,away
+112,Croatia,4.172920586153927,Croatia - Brazil,home
+113,Brazil,1.597545609886601,Croatia - Brazil,away
+114,Netherlands,4.172920586153927,Netherlands - Argentina,home
+115,Argentina,1.597545609886601,Netherlands - Argentina,away
+116,Morocco,4.4615777235864575,Morocco - Portugal,home
+117,Portugal,1.7947031134804057,Morocco - Portugal,away
+118,England,3.1627630011909487,England - France,home
+119,France,2.921496625645098,England - France,away
+120,Argentina,4.411291575331826,Argentina - Croatia,home
+121,Croatia,2.118145571914321,Argentina - Croatia,away
+122,France,4.882367689768288,France - Morocco,home
+123,Morocco,1.9120160464678966,France - Morocco,away
+124,Croatia,4.565445471559008,Croatia - Morocco,home
+125,Morocco,2.4328815289513983,Croatia - Morocco,away
+126,Argentina,4.565445471559008,Argentina - France,home
+127,France,2.4328815289513983,Argentina - France,away
