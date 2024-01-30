@@ -35,7 +35,7 @@ df_team_shots = df_match_data[["home_team", "home_saves", "away_sot"]]
 fig = make_subplots(rows=5, cols=3, specs=[[{}, {}, {}], [{}, {}, {}], [{}, {}, {}],
            [{"colspan": 3}, None, None], [{"colspan": 3}, None, None]],
            subplot_titles=('Topscorers', 'Pens made', "Most assists", 'Most passes', 'Most minutes', 'Most saves', 'Most clean sheets',
-                                                    'Most tackles', 'Most blocks', 'Shots saved v.s. Shots taken'))
+                                                    'Most tackles', 'Most blocks', 'Shots saved v.s. Shots taken', 'Shots taken v.s. Goals'))
 fig.add_trace(row=1, col=1,
     trace=go.Bar(x=topscorers['player'], y=topscorers['goals'], width=0.42)
     )
