@@ -76,6 +76,13 @@ layout = html.Div([
             )
         ])
 ])
+@callback(
+    Output('player-table', 'data'),
+    [Input('demo-dropdown', 'value')]
+)
+def update_table(value):
+    filtered_data = df_player_stats[df_player_stats["team"] == value][['player', 'position', 'games', 'goals', 'assists']]
+    return filtered_data.to_dict('records')
 
 @callback(
     Output('sub-graphs', 'figure'),
