@@ -9,6 +9,9 @@ df_player_stats = pd.read_csv('../Data/FIFA World Cup 2022 Player Data/player_st
 df_scaled = pd.read_csv('df_scaled.csv')
 df_scaled_filtered = df_scaled[df_scaled['name']== 'Denzel Dumfries']
 
+player_lst = list(df_player_stats["player"].unique())
+player_lst.insert(0, "~")
+
 colors = {
     'background': '#0E1B2A',
     'text': '#FFFFFF',
@@ -47,6 +50,10 @@ layout = html.Div([
     # },
    ),
     ]),
+    html.Div('Select player to compare(red line):'),
+    html.Div([
+        dcc.Dropdown(player_lst, value="~", id='second-dropdown', searchable=True, style = {'color' : colors['dropdown']})
+    ]),
     html.Div([
         dcc.Graph(
                 id='rating-graphs',
@@ -65,14 +72,18 @@ def update_table(value):
 
 @callback(
     Output('rating-graphs', 'figure'),
-    Input('demo-dropdown', 'value'), prevent_initial_call=True, allow_duplicates=True, suppress_callback_exceptions=True
+    Input('demo-dropdown', 'value'), 
+    Input('second-dropdown', 'value'), prevent_initial_call=True, allow_duplicates=True, suppress_callback_exceptions=True
 )
 
-def update_graph(value):
+def update_graph(first_player, second_player):
 
-    df_scaled_filtered = df_scaled[df_scaled['name']== value]
+    df_scaled_filtered = df_scaled[df_scaled['name']== first_player]
     fig = make_subplots(rows=1, cols=1)
     fig.add_trace(go.Scatter(y=df_scaled_filtered['rating']), row=1, col=1)
+    if second_player != "~":
+        df_scaled_filtered2 = df_scaled[df_scaled['name']== second_player]
+        fig.add_trace(go.Scatter(y=df_scaled_filtered2['rating']), row=1, col=1)
     fig.update_xaxes(title_text="Match", row=1, col=1)
     fig.update_yaxes(title_text="Rating", row=1, col=1)
 
