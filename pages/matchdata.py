@@ -13,51 +13,87 @@ import base64
 import dash_bootstrap_components as dbc
 
 
-# def create_pitch():
-#     fig2 = go.Figure()
+home_442 = [
+        (7, 45), (25, 30), (25, 5), (25, 60), (25, 85),
+        (43, 30), (43, 5), (43, 60), (43, 85),
+        (61, 20), (61, 70)]
+away_442 = [(130 - x, y) for x, y in [
+        (7, 45), (25, 30), (25, 5), (25, 60), (25, 85),
+        (43, 30), (43, 5), (43, 60), (43, 85),
+        (61, 20), (61, 70)]]
+home_352 = [
+        (7, 45), (25, 45), (25, 25), (25, 5), (25, 65), (25, 85),
+        (43, 45), (43, 15), (43, 75),
+        (61, 20), (61, 70)]
+away_352 = [(130 - x, y) for x, y in [
+        (7, 45), (25, 45), (25, 25), (25, 5), (25, 65), (25, 85),
+        (43, 45), (43, 15), (43, 75),
+        (61, 20), (61, 70)]]
+home_4231 = [
+        (7, 45), (25, 30), (25, 5), (25, 60), (25, 85),
+        (43, 55), (43, 25),
+        (55, 20), (55, 45), (55, 70),
+        (60, 45)]
+away_4231 =  [(130 - x, y) for x, y in [
+        (7, 45), (25, 30), (25, 5), (25, 60), (25, 85),
+        (43, 55), (43, 25),
+        (55, 20), (55, 45), (55, 70),
+        (60, 45)]]
+home_352 = [
+        (7, 45), (43, 45), (43, 25), (43, 5), (43, 65), (43, 85),
+        (25, 45), (25, 15), (25, 75),
+        (61, 20), (61, 70)]
+away_352 = [(130 - x, y) for x, y in [
+        (7, 45), (43, 45), (43, 25), (43, 5), (43, 65), (43, 85),
+        (25, 45), (25, 15), (25, 75),
+        (61, 20), (61, 70)]]
+home_343 = [
+        (7, 45), (25, 15), (25, 45), (25, 75), (43, 30), (43, 5), (43, 60), (43, 85), 
+        (61, 20), (61, 45), (61, 70)]
+away_343 = [(130 - x, y) for x, y in [
+        (7, 45), (25, 15), (25, 45), (25, 75), (43, 30), (43, 5), (43, 60), (43, 85), 
+        (61, 20), (61, 45), (61, 70)]]
+home_3412  =[
+        (7, 45), (25, 30), (25, 45), (25, 60), (35, 30), (35, 5), (35, 60), (35, 85), (45, 45), (61, 35), (61, 55)]
+away_3412 = [(130 - x, y) for x, y in [
+        (7, 45), (25, 30), (25, 45), (25, 60), (35, 30), (35, 5), (35, 60), (35, 85), (45, 45), (61, 35), (61, 55)]]
+home_41212 = [
+        (7, 45), (25, 30), (25, 5), (25, 60), (25, 85), (33,45), (43, 15), (43, 75),
+        (61, 20), (55, 45), (61, 70)]
+away_41212 = [(130 - x, y) for x, y in [
+        (7, 45), (25, 30), (25, 5), (25, 60), (25, 85), (33,45), (43, 15), (43, 75),
+        (61, 20), (55, 45), (61, 70)]]
+home_532 = [(7, 45), (25, 45), (25, 25), (25, 5), (25, 65), (25, 85),
+                      (43, 45), (43, 15), (43, 75), (61, 20), (61, 70)]
+away_532 = [(130 - x, y) for x, y in [(7, 45), (25, 45), (25, 25),
+            (25, 5), (25, 65), (25, 85),(43, 45), (43, 15), (43, 75), 
+            (61, 20), (61, 70)]]
+home_433 = [(7, 45), (25, 30), (25, 5), (25, 60), (25, 85), (43, 45), 
+            (43, 15), (43, 75), (61, 45), (61, 75), (61, 15)]
+away_433 = [(130 - x, y) for x, y in [(7, 45), (25, 30), (25, 5), 
+                                      (25, 60), (25, 85), (43, 45), (43, 15), 
+                                      (43, 75), (61, 45), (61, 75), (61, 15)]]
+home_541 = [
+        (7, 45), (25, 30), (25, 45), (25, 60), (25, 75),
+        (43, 25), (25, 15), (43, 40), (43, 55), (43, 70),
+        (61, 45)]
+away_541 = [(130 - x, y) for x, y in [
+        (7, 45), (25, 30), (25, 45), (25, 60), (25, 75),
+        (43, 25), (25, 15), (43, 40), (43, 55), (43, 70),
+        (61, 45)]]
+home_4411 = [
+        (7, 45), (25, 30), (25, 5), (25, 60), (25, 85),
+        (43, 30), (43, 5), (43, 60), (43, 85),
+        (55, 45), (61, 45)]
+away_4411 = [(130 - x, y) for x, y in [
+        (7, 45), (25, 30), (25, 5), (25, 60), (25, 85),
+        (43, 30), (43, 5), (43, 60), (43, 85),
+        (55, 45), (61, 45)]]
 
-#     # Add pitch boundaries
-#     fig2.add_shape(type='rect', x0=0, y0=0, x1=130, y1=90, line=dict(color='black', width=2))
-
-#     # Add penalty areas
-#     fig2.add_shape(type='rect', x0=0, y0=25, x1=16.5, y1=65, line=dict(color='black', width=2))
-#     fig2.add_shape(type='rect', x0=113.5, y0=25, x1=130, y1=65, line=dict(color='black', width=2))
-
-#     # Add goal areas
-#     fig2.add_shape(type='rect', x0=0, y0=36, x1=5.5, y1=54, line=dict(color='black', width=2))
-#     fig2.add_shape(type='rect', x0=124.5, y0=36, x1=130, y1=54, line=dict(color='black', width=2))
-
-#     # Add centre circle
-#     fig2.add_shape(type='circle', x0=65-9.15, y0=45-9.15, x1=65+9.15, y1=45+9.15, line=dict(color='black', width=2))
-
-#     # Add centre spot
-#     fig2.add_trace(go.Scatter(x=[65], y=[45], mode='markers', marker=dict(color='black', size=5)))
-
-#     # Player positions for 5-3-2 formation (home team)
-#     home_positions = [(7, 45), (25, 45), (25, 25), (25, 5), (25, 65), (25, 85),
-#                       (43, 45), (43, 15), (43, 75), (61, 20), (61, 70)]
-
-#     # Player positions for 4-3-3 formation (away team)
-#     away_positions = away_positions = [(130 - x, y) for x, y in [(7, 45), (25, 30), (25, 5), (25, 60), (25, 85), (43, 45), (43, 15), (43, 75), (61, 45), (61, 75), (61, 15)]]
-
-
-#     # Add players for the home team
-#     for position in home_positions:
-#         fig2.add_trace(go.Scatter(x=[position[0]], y=[position[1]], mode='markers', marker=dict(color='red', size=10)))
-
-#     # Add players for the away team
-#     for position in away_positions:
-#         fig2.add_trace(go.Scatter(x=[position[0]], y=[position[1]], mode='markers', marker=dict(color='blue', size=10)))
-
-#     # Update layout
-#     fig2.update_layout(
-#         xaxis=dict(range=[0, 130], visible=False),
-#         yaxis=dict(range=[0, 90], visible=False),
-#         plot_bgcolor='green',  # Change pitch color if needed
-#         showlegend=False
-#     )
-
-#     return fig2
+home_formations = {'5-3-2': home_532, '4-2-3-1': home_4231, '4-3-3': home_433, '4-4-2': home_442, '3-5-2': home_352, '3-4-3': home_343, '3-4-1-2': home_3412,
+       '4-1-2-1-2': home_41212, '4-4-1-1': home_4411, '5-4-1': home_541}
+away_formations = {'5-3-2': away_532, '4-2-3-1': away_4231, '4-3-3': away_433, '4-4-2': away_442, '3-5-2': away_352, '3-4-3': away_343, '3-4-1-2': away_3412,
+       '4-1-2-1-2': away_41212, '4-4-1-1': away_4411, '5-4-1': away_541}
 
 
 fig2 = go.Figure()
@@ -270,21 +306,18 @@ def create_pitch(value, active_cell):
         if active_cell['row']< len(df_data):
             home_form = df_data.loc[active_cell['row'],'home_formation']
             away_form = df_data.loc[active_cell['row'],'away_formation']
-
-            if home_form == '5-3-2':
-                home_posistions = five_three_two
-                # Add players for the home team
-                for position in home_posistions:
-                    fig2.add_trace(go.Scatter(x=[position[0]], y=[position[1]], mode='markers', marker=dict(color='red', size=10)))
-
-            if away_form == '4-3-3':
-                away_positions = four_three_three
-                # Add players for the away team
-                for position in away_positions:
-                    fig2.add_trace(go.Scatter(x=[position[0]], y=[position[1]], mode='markers', marker=dict(color='blue', size=10)))
-
-
-    
+            for key in home_formations:
+                if home_form == key:
+                    home_posistions = home_formations[key]
+                    # Add players for the home team
+                    for position in home_posistions:
+                        fig2.add_trace(go.Scatter(x=[position[0]], y=[position[1]], mode='markers', marker=dict(color='red', size=10)))
+            for key2 in away_formations:
+                if away_form == key2:
+                    away_positions = away_formations[key2]
+                    # Add players for the away team
+                    for position in away_positions:
+                        fig2.add_trace(go.Scatter(x=[position[0]], y=[position[1]], mode='markers', marker=dict(color='blue', size=10)))
 
     # Update layout
     fig2.update_layout(
