@@ -180,7 +180,7 @@ layout = html.Div([
         ]),
     html.Div([
     html.H1('Formation'),
-    dcc.Graph(figure=fig2, id='test-field-graph')
+    dcc.Graph(figure=fig2, id='matchdata-field-graph')
         ])
     ])
 
@@ -209,7 +209,7 @@ def update_graph(value):
     avg_sot_away = filtered_data['away_sot'].mean()
     avg_clear_home = filtered_data['home_clearances'].mean()
     avg_clear_away = filtered_data['away_clearances'].mean()
-    fig = make_subplots(rows=2, cols=2, subplot_titles=('Average goals', "Average attendance"))
+    fig = make_subplots(rows=2, cols=2, subplot_titles=('Average goals', "Average attendance", "Shots", "Clearances"))
     fig.add_trace(row=1, col=1,
         trace=go.Bar(x=['Home', 'Away'], y=[avg_home, avg_away], width=0.42)
         )
@@ -224,14 +224,20 @@ def update_graph(value):
         )
     fig.update_yaxes(title_text="Goals", row=1, col=1)
     fig.update_yaxes(title_text="Attendance", row=1, col=2)
+    fig.update_xaxes(tickangle=10, row=1, col=2)
+    fig.update_xaxes(title_text="Home shots", row=2, col=1)
+    fig.update_yaxes(title_text="Away shots", row=2, col=1)
+    fig.update_xaxes(title_text="Home clearances", row=2, col=2)
+    fig.update_yaxes(title_text="Away clearances", row=2, col=2)
+    fig.update_layout(height=800)
 
 
     return fig
 
-@callback(Output('test-field-graph', 'figure'), Input('match-table', 'active_cell'), prevent_initial_call=True, allow_duplicates=True, suppress_callback_exceptions=True)
+@callback(Output('matchdata-field-graph', 'figure'), Input('demo-dropdown', 'value'), Input('match-table', 'active_cell'), prevent_initial_call=True, allow_duplicates=True, suppress_callback_exceptions=True)
 
 
-def create_pitch(active_cell):
+def create_pitch(value, active_cell):
     fig2 = go.Figure()
 
     # Add pitch boundaries
@@ -251,9 +257,6 @@ def create_pitch(active_cell):
     # Add centre spot
     fig2.add_trace(go.Scatter(x=[65], y=[45], mode='markers', marker=dict(color='black', size=5)))
 
-    home_form = df_match_data.loc[active_cell['row'],'home_formation']
-    away_form = df_match_data.loc[active_cell['row'],'away_formation']
-
     # Player positions for 5-3-2 formation (home team)
     five_three_two = [(7, 45), (25, 45), (25, 25), (25, 5), (25, 65), (25, 85),
                       (43, 45), (43, 15), (43, 75), (61, 20), (61, 70)]
@@ -261,18 +264,25 @@ def create_pitch(active_cell):
     # Player positions for 4-3-3 formation (away team)
     four_three_three = [(130 - x, y) for x, y in [(7, 45), (25, 30), (25, 5), (25, 60), (25, 85), (43, 45), (43, 15), (43, 75), (61, 45), (61, 75), (61, 15)]]
 
-    if home_form == '4-3-3':
-        home_posistions = four_three_three
-        # Add players for the home team
-        for position in home_posistions:
-            fig2.add_trace(go.Scatter(x=[position[0]], y=[position[1]], mode='markers', marker=dict(color='red', size=10)))
+    df_data = df_match_data_cleaned[df_match_data_cleaned["Stage"] == value][column]
+    df_data = df_data.reset_index()
+    if active_cell:
+        if active_cell['row']< len(df_data):
+            home_form = df_data.loc[active_cell['row'],'home_formation']
+            away_form = df_data.loc[active_cell['row'],'away_formation']
 
-    if away_form == '4-3-3':
-        away_positions = four_three_three
-        # Add players for the away team
-        for position in away_positions:
-            fig2.add_trace(go.Scatter(x=[position[0]], y=[position[1]], mode='markers', marker=dict(color='blue', size=10)))
-    
+            if home_form == '5-3-2':
+                home_posistions = five_three_two
+                # Add players for the home team
+                for position in home_posistions:
+                    fig2.add_trace(go.Scatter(x=[position[0]], y=[position[1]], mode='markers', marker=dict(color='red', size=10)))
+
+            if away_form == '4-3-3':
+                away_positions = four_three_three
+                # Add players for the away team
+                for position in away_positions:
+                    fig2.add_trace(go.Scatter(x=[position[0]], y=[position[1]], mode='markers', marker=dict(color='blue', size=10)))
+
 
     
 
