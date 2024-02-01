@@ -9,6 +9,8 @@ import numpy as np
 from PIL import Image
 import os
 
+
+# Loading the data
 df_team_data = pd.read_csv('../Data/FIFA World Cup 2022 Team Data/team_data.csv', delimiter=',')
 df_player_stats = pd.read_csv('../Data/FIFA World Cup 2022 Player Data/player_stats.csv', delimiter=',')
 df_team_group_stats = pd.read_csv('../Data/FIFA World Cup 2022 Team Data/group_stats.csv', delimiter=',')
@@ -20,12 +22,14 @@ df_team_rating_scaled = df_team_rating[df_team_rating['name'] == 'Argentina']
 team_lst = list(df_team_data["team"].unique())
 team_lst.insert(0, "~")
 
+# Defining colors
 colors = {
     'background': '#0E1B2A',
     'text': '#FFFFFF',
     'dropdown' : '#000000'
 }
 
+# Making figures of goals, assists and performance
 filtered_data = df_player_stats[df_player_stats["team"] == 'Argentina'][['player', 'position', 'games', 'goals', 'assists']]
 filtered_goals = filtered_data.sort_values('goals', ascending=False).head(5)
 filtered_assists = filtered_data.sort_values('assists', ascending=False).head(5)
@@ -46,6 +50,7 @@ fig.update_xaxes(title_text="Match", row=1, col=1)
 fig.update_yaxes(title_text="Rating", row=2, col=1)
 
 
+# Creating page
 dash.register_page(__name__,
                    path='/team-data',
                     title='Teams',
@@ -80,6 +85,7 @@ layout = html.Div([
     Output('player-table', 'data'),
     [Input('demo-dropdown', 'value')]
 )
+# Updating table with callback
 def update_table(value):
     filtered_data = df_player_stats[df_player_stats["team"] == value][['player', 'position', 'games', 'goals', 'assists']]
     return filtered_data.to_dict('records')
@@ -89,6 +95,8 @@ def update_table(value):
     Input('demo-dropdown', 'value'),
      Input('team-data-new-dropdown', 'value'), prevent_initial_call=True, allow_duplicates=True, suppress_callback_exceptions=True
 )
+
+# Updating figures with callbacks
 def update_graph(first_team, second_team):
 
     filtered_data = df_player_stats[df_player_stats["team"] == first_team][['player', 'position', 'games', 'goals', 'assists']]

@@ -12,7 +12,7 @@ import io
 import base64
 import dash_bootstrap_components as dbc
 
-
+# Definining all possible formations
 home_442 = [
         (7, 45), (25, 30), (25, 5), (25, 60), (25, 85),
         (43, 30), (43, 5), (43, 60), (43, 85),
@@ -90,12 +90,14 @@ away_4411 = [(130 - x, y) for x, y in [
         (43, 30), (43, 5), (43, 60), (43, 85),
         (55, 45), (61, 45)]]
 
+# Creating dictionary with all possible formations
 home_formations = {'5-3-2': home_532, '4-2-3-1': home_4231, '4-3-3': home_433, '4-4-2': home_442, '3-5-2': home_352, '3-4-3': home_343, '3-4-1-2': home_3412,
        '4-1-2-1-2': home_41212, '4-4-1-1': home_4411, '5-4-1': home_541}
 away_formations = {'5-3-2': away_532, '4-2-3-1': away_4231, '4-3-3': away_433, '4-4-2': away_442, '3-5-2': away_352, '3-4-3': away_343, '3-4-1-2': away_3412,
        '4-1-2-1-2': away_41212, '4-4-1-1': away_4411, '5-4-1': away_541}
 
 
+# Creating figure of football pitch
 fig2 = go.Figure()
 
 # Add pitch boundaries
@@ -115,23 +117,6 @@ fig2.add_shape(type='circle', x0=65-9.15, y0=45-9.15, x1=65+9.15, y1=45+9.15, li
 # Add centre spot
 fig2.add_trace(go.Scatter(x=[65], y=[45], mode='markers', marker=dict(color='black', size=5)))
 
-# # Player positions for 5-3-2 formation (home team)
-# home_positions = [(7, 45), (25, 45), (25, 25), (25, 5), (25, 65), (25, 85),
-#                       (43, 45), (43, 15), (43, 75), (61, 20), (61, 70)]
-
-# # Player positions for 4-3-3 formation (away team)
-# away_positions = away_positions = [(130 - x, y) for x, y in [(7, 45), (25, 30), (25, 5), (25, 60), (25, 85), (43, 45), (43, 15), (43, 75), (61, 45), (61, 75), (61, 15)]]
-
-
-# # Add players for the home team
-# for position in home_positions:
-#     fig2.add_trace(go.Scatter(x=[position[0]], y=[position[1]], mode='markers', marker=dict(color='red', size=10)))
-
-# # Add players for the away team
-# for position in away_positions:
-#     fig2.add_trace(go.Scatter(x=[position[0]], y=[position[1]], mode='markers', marker=dict(color='blue', size=10)))
-
-# Update layout
 fig2.update_layout(
     xaxis=dict(range=[0, 130], visible=False),
     yaxis=dict(range=[0, 90], visible=False),
@@ -139,7 +124,7 @@ fig2.update_layout(
     showlegend=False
 )
 
-
+# Loading/cleaning the data
 df_match_data = pd.read_csv('../Data/FIFA World Cup 2022 Match Data/data.csv', delimiter=',')
 df_match_data_cleaned = df_match_data[['match', 'match_time', 'home_team', 'away_team', 'score', 'attendance', 'venue', 'referee', 'home_formation', 'away_formation', 'home_sot', 'away_sot', 'home_clearances', 'away_clearances']]
 df_match_data_cleaned[['score_home', 'score_away']] = df_match_data_cleaned.score.str.split("–", expand=True,)
@@ -150,13 +135,14 @@ df_match_data_cleaned.loc[60:62, 'Stage'] = 'Semi finals'
 df_match_data_cleaned.loc[62:, 'Stage'] = 'Finals'
 column = ['match_time', 'home_team', 'away_team', 'score_home', 'score_away', 'attendance', 'venue', 'referee', 'home_formation', 'away_formation', 'home_sot', 'away_sot', 'home_clearances', 'away_clearances']
 
-
+# Defining colors
 colors = {
     'background': '#0E1B2A',
     'text': '#FFFFFF',
     'dropdown' : '#000000'
 }
 
+# Creating several plots with stattistics
 filtered_data = df_match_data_cleaned[df_match_data_cleaned["Stage"] == 'Group stage'][column]
 for index, row in filtered_data.iterrows():
     filtered_data.loc[index, 'score_home'] = int(re.sub("\(.*?\)","",str(filtered_data.loc[index, 'score_home'])))
@@ -190,7 +176,7 @@ fig.update_yaxes(title_text="Away clearances", row=2, col=2)
 fig.update_layout(height=800)
 
 
-
+# Creating match data page
 dash.register_page(__name__,
                    path='/matchdata',
                     title='World cup matches',
@@ -225,6 +211,7 @@ layout = html.Div([
     Output('match-table', 'data'),
     [Input('demo-dropdown', 'value')]
 )
+# Updating table with callback input
 def update_table(value):
     filtered_data = df_match_data_cleaned[df_match_data_cleaned["Stage"] == value][column]
     return filtered_data.to_dict('records')
@@ -233,6 +220,7 @@ def update_table(value):
     Output('sub-plots', 'figure'),
     Input('demo-dropdown', 'value'), prevent_initial_call=True, allow_duplicates=True
 )
+# Updating figures with callback input
 def update_graph(value):
 
     filtered_data = df_match_data_cleaned[df_match_data_cleaned["Stage"] == value][column]
@@ -272,7 +260,7 @@ def update_graph(value):
 
 @callback(Output('matchdata-field-graph', 'figure'), Input('demo-dropdown', 'value'), Input('match-table', 'active_cell'), prevent_initial_call=True, allow_duplicates=True, suppress_callback_exceptions=True)
 
-
+# Updating football pitch witch selected game
 def create_pitch(value, active_cell):
     fig2 = go.Figure()
 

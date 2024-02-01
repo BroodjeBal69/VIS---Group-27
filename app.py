@@ -2,6 +2,7 @@ import dash
 from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
 
+# Creating the dasbhoard
 app = Dash(__name__, use_pages=True, external_stylesheets=[dbc.themes.MORPH])
 
 app.layout = html.Div([

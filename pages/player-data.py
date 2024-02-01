@@ -5,6 +5,7 @@ from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import re
 
+# Loading/clearing the data
 df_player_stats = pd.read_csv('../Data/FIFA World Cup 2022 Player Data/player_stats.csv', delimiter=',')
 df_scaled = pd.read_csv('df_scaled.csv')
 df_scaled_filtered = df_scaled[df_scaled['name']== 'Denzel Dumfries']
@@ -12,17 +13,20 @@ df_scaled_filtered = df_scaled[df_scaled['name']== 'Denzel Dumfries']
 player_lst = list(df_player_stats["player"].unique())
 player_lst.insert(0, "~")
 
+# Defining the colors
 colors = {
     'background': '#0E1B2A',
     'text': '#FFFFFF',
     'dropdown' : '#000000'
 }
 
+# Creating performance plot
 fig = make_subplots(rows=1, cols=1)
 fig.add_trace(go.Scatter(y=df_scaled_filtered['rating']), row=1, col=1)
 fig.update_xaxes(title_text="Match", row=1, col=1)
 fig.update_yaxes(title_text="Rating", row=1, col=1)
 
+#Creating the player page
 dash.register_page(__name__,
                    path='/player-data',
                     title='World cup players',
@@ -61,11 +65,12 @@ layout = html.Div([
             )])
 ])
 
+
 @callback(
     Output('player-ratings', 'data'),
     [Input('demo-dropdown', 'value')]
 )
-
+# Updating the table to the selected player
 def update_table(value):
     filtered_data = df_scaled[df_scaled["name"] == value][['name', 'rating', 'match']].to_dict('records')
     return filtered_data
@@ -76,6 +81,7 @@ def update_table(value):
     Input('second-dropdown', 'value'), prevent_initial_call=True, allow_duplicates=True, suppress_callback_exceptions=True
 )
 
+# Updating the figure to the selected players
 def update_graph(first_player, second_player):
 
     df_scaled_filtered = df_scaled[df_scaled['name']== first_player]

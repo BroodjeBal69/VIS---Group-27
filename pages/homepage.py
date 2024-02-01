@@ -5,6 +5,7 @@ from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import re
 
+# Loading/cleaning the data
 df_player_defense       = pd.read_csv('../Data/FIFA World Cup 2022 Player Data/player_defense.csv', delimiter=',')
 df_player_keepers       = pd.read_csv('../Data/FIFA World Cup 2022 Player Data/player_keepers.csv', delimiter=',')
 df_player_passing       = pd.read_csv('../Data/FIFA World Cup 2022 Player Data/player_passing.csv', delimiter=',')
@@ -32,6 +33,7 @@ for index, row in df_match_data.iterrows():
     df_match_data.loc[index, 'score_away'] = int(re.sub("\(.*?\)","",str(df_match_data.loc[index, 'score_away'])))
 df_team_shots = df_match_data[["home_team", "home_saves", "away_sot"]]
 
+# Creating all figures of the home page
 fig = make_subplots(rows=5, cols=3, specs=[[{}, {}, {}], [{}, {}, {}], [{}, {}, {}],
            [{"colspan": 3}, None, None], [{"colspan": 3}, None, None]],
            subplot_titles=('Topscorers', 'Pens made', "Most assists", 'Most passes', 'Most minutes', 'Most saves', 'Most clean sheets',
